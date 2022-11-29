@@ -12,6 +12,8 @@ module Wrecker.Statistics
     ) where
 
 import Data.Aeson (ToJSON(..), Value(..), (.=), object)
+import Data.Aeson.KeyMap (fromList)
+import Data.Aeson.Key (fromText)
 import Data.Function
 import qualified Data.HashMap.Strict as H
 import Data.HashMap.Strict (HashMap)
@@ -332,7 +334,7 @@ instance ToJSON AllStats where
     toJSON AllStats {..} =
         object
             [ "per-request" .=
-              Object (H.fromList $ map (\(k, v) -> (T.pack k, toJSON v)) $ H.toList aPerUrl)
+              Object (fromList $ map (\(k, v) -> (fromText $ T.pack k, toJSON v)) $ H.toList aPerUrl)
             , "runs" .= aCompleteRuns
             , "rollup" .= aRollup
             , "totalRuns" .= rsTotalTests aRollup
