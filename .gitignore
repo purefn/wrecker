@@ -13,4 +13,3 @@ dist
 ~*
 *~
 .osx-cabal-sandbox/
-wrecker.cabal
